@@ -115,7 +115,6 @@ def test_delete_product_frombasket():
 
     assert driver.current_url == 'https://www.saucedemo.com/cart.html'
 
-    # driver.quit()
 
 # 3.Карточка ЦВЕТ
 # -Успешный переход к карточке товара после клика на картинку товара
@@ -135,6 +134,7 @@ def test_clik_image():
     image.click()
 
     assert driver.current_url =='https://www.saucedemo.com/inventory-item.html?id=0'
+
 
 # -Успешный переход к карточке товара после клика по названию товара
 def test_click_name_product():
@@ -159,7 +159,7 @@ def test_click_name_product():
 
 #  4.Оформление заказа
 # -Оформление заказа с использованием корректных данных
-def test_Placing_an_order():
+def test_placing_an_order():
     driver.get(url_test)
 
     username = driver.find_element(By.XPATH, "//*[@placeholder='Username']")
@@ -218,6 +218,7 @@ def test_asc():
 
     button_serting = driver.find_element(By.XPATH, "//*[@value='az']")
     button_serting.click()
+
     time.sleep(2)
 
 
@@ -235,24 +236,26 @@ def test_desc():
 
     button_serting = driver.find_element(By.XPATH, "//*[@value='za']")
     button_serting.click()
+
     time.sleep(2)
 
 # -Проверка работоспособности фильтра (от низкой до высокой)
 def test_price_low():
-        driver.get(url_test)
+    driver.get(url_test)
 
-        username = driver.find_element(By.XPATH, "//*[@placeholder='Username']")
-        username.send_keys('standard_user')
+    username = driver.find_element(By.XPATH, "//*[@placeholder='Username']")
+    username.send_keys('standard_user')
 
-        password = driver.find_element(By.XPATH, "//*[@placeholder='Password']")
-        password.send_keys('secret_sauce')
+    password = driver.find_element(By.XPATH, "//*[@placeholder='Password']")
+    password.send_keys('secret_sauce')
 
-        button_login = driver.find_element(By.XPATH, "//*[@data-test='login-button']")
-        button_login.click()
+    button_login = driver.find_element(By.XPATH, "//*[@data-test='login-button']")
+    button_login.click()
 
-        button_serting = driver.find_element(By.XPATH, "//*[@value='lohi']")
-        button_serting.click()
-        time.sleep(2)
+    button_serting = driver.find_element(By.XPATH, "//*[@value='lohi']")
+    button_serting.click()
+
+    time.sleep(2)
 
 # -Проверка работоспособности фильтра (от высокой до низкой)
 def test_price_higt():
@@ -316,7 +319,7 @@ def test_about():
     button_about.click()
     time.sleep(1)
 
-    assert  driver.current_url == 'https://saucelabs.com/'
+    assert driver.current_url == 'https://saucelabs.com/'
 
 
 # -Проверка работоспособности кнопки «Сбросить состояние приложения»
@@ -340,5 +343,6 @@ def test_reset():
     button_reset.click()
 
     driver.quit()
+
 
 
