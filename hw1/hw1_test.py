@@ -38,6 +38,7 @@ def test_avtorization_not_correct():
     button_login.click()
 
     button_error  = driver.find_element(By.XPATH, "//*[@data-test='error']")
+
     assert button_error.text == 'Epic sadface: Username and password do not match any user in this service'
     print(button_error.text)
 
@@ -86,6 +87,7 @@ def test_delete_card():
     button_remove.click()
 
     adding_to_cart_after_delete = driver.find_element(By.XPATH, "//*[@data-test='add-to-cart-sauce-labs-backpack']")
+
     assert adding_to_cart_after_delete.text == 'Add to cart', 'Данный тест упал'
     print(adding_to_cart_after_delete.text)
 
