@@ -9,7 +9,7 @@ driver = webdriver.Chrome()
 
 # 1.Авторизация
 #-Авторизация с использованием корректных данных (standard_user, secret_sauce)
-def test_avtorization_is_correct():
+def test_avtorization_is_correct(driver):
     driver.get(URL_TEST)
     driver.maximize_window()
 
@@ -22,7 +22,7 @@ def test_avtorization_is_correct():
     assert driver.current_url == 'https://www.saucedemo.com/inventory.html'
 
 #-Авторизация с использованием некорректированных данных (пользователя)
-def test_avtorization_not_correct():
+def test_avtorization_not_correct(driver):
     driver.get(URL_TEST)
 
     driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
@@ -38,7 +38,7 @@ def test_avtorization_not_correct():
 
 # 2.Корзина
 #-Добавление товара в корзину через каталог
-def test_add_product_to_catalog():
+def test_add_product_to_catalog(driver):
     driver.get(URL_TEST)
 
     driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
@@ -54,7 +54,7 @@ def test_add_product_to_catalog():
     assert remove_button_text.text == 'Remove', 'Текст не соответствует'
 
 #-Удаление товара из корзины через карточку товара
-def test_delete_product_from_catalog():
+def test_delete_product_from_catalog(driver):
     driver.get(URL_TEST)
 
     driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
@@ -72,7 +72,7 @@ def test_delete_product_from_catalog():
     assert add_product_to_catalog_after_delete.text == 'Add to cart'
 
 #-Удаление товара из корзины через корзину
-def test_delete_product_from_cart():
+def test_delete_product_from_cart(driver):
     driver.get(URL_TEST)
 
     driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
@@ -129,35 +129,35 @@ def test_click_name_product():
 
 #  4.Оформление заказа
 # -Оформление заказа с использованием корректных данных
-def test_placing_an_order():
-    driver.get(URL_TEST)
+def test_placing_an_order(authorization):
+    # driver.get(URL_TEST)
+    #
+    # driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
+    #
+    # driver.find_element(By.XPATH, PASSWORD_FIELD).send_keys(PASSWORD)
+    #
+    # driver.find_element(By.XPATH, LOGIN_BUTTON).click()
 
-    driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
+    authorization.find_element(By.XPATH, "//div[normalize-space()='Sauce Labs Bolt T-Shirt']").click()
 
-    driver.find_element(By.XPATH, PASSWORD_FIELD).send_keys(PASSWORD)
+    authorization.find_element(By.XPATH,"//button[@id='add-to-cart-sauce-labs-bolt-t-shirt']").click()
 
-    driver.find_element(By.XPATH, LOGIN_BUTTON).click()
-
-    driver.find_element(By.XPATH, "//div[normalize-space()='Sauce Labs Bolt T-Shirt']").click()
-
-    driver.find_element(By.XPATH,"//button[@id='add-to-cart-sauce-labs-bolt-t-shirt']").click()
-
-    driver.find_element(By.XPATH, CART_BUTTON).click()
+    authorization.find_element(By.XPATH, CART_BUTTON).click()
     time.sleep(3)
 
-    driver.find_element(By.XPATH,"//button[@id='checkout']").click()
+    authorization.find_element(By.XPATH,"//button[@id='checkout']").click()
 
-    driver.find_element(By.XPATH,"//input[@id='first-name']").send_keys(FIRST_NAME)
+    authorization.find_element(By.XPATH,"//input[@id='first-name']").send_keys(FIRST_NAME)
 
-    driver.find_element(By.XPATH,"//input[@id='last-name']").send_keys(LAST_NAME)
+    authorization.find_element(By.XPATH,"//input[@id='last-name']").send_keys(LAST_NAME)
 
-    driver.find_element(By.XPATH, "//input[@id='postal-code']").send_keys(ZIP_CODE)
+    authorization.find_element(By.XPATH, "//input[@id='postal-code']").send_keys(ZIP_CODE)
 
-    driver.find_element(By.XPATH, "//input[@id='continue']").click()
+    authorization.find_element(By.XPATH, "//input[@id='continue']").click()
 
-    driver.find_element(By.XPATH, "//button[@id='finish']").click()
+    authorization.find_element(By.XPATH, "//button[@id='finish']").click()
 
-    complete = driver.find_element(By.XPATH, "//h2[@class='complete-header']")
+    complete = authorization.find_element(By.XPATH, "//h2[@class='complete-header']")
 
     assert complete.text == 'Thank you for your order!'
 
@@ -179,7 +179,7 @@ def test_filter_name_asc():
     assert button_serting.text == 'Name (A to Z)'
 
 # -Проверка работоспособности фильтра (от Z до A)
-def test_filter_name_desc():
+def test_filter_name_desc(driver):
     driver.get(URL_TEST)
 
     driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
