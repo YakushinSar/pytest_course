@@ -6,19 +6,20 @@ from selenium.webdriver.common.by import By
 
 @pytest.fixture()
 def driver():
+    #создание драйвера
     driver = webdriver.Chrome()
     yield driver
     driver.quit()
 
 @pytest.fixture()
-def authorization():
-    driver = webdriver.Chrome()
+def authorization(driver):
+    #авторизация с коректными данными
     driver.get(URL_TEST)
+    driver.maximize_window()
     driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
     driver.find_element(By.XPATH, PASSWORD_FIELD).send_keys(PASSWORD)
     driver.find_element(By.XPATH, LOGIN_BUTTON).click()
     yield driver
-    print('\nquit browser...')
     driver.quit()
 
 # Образец
@@ -27,7 +28,6 @@ def authorization():
 # from selenium.webdriver.common.by import By
 #
 # link = "http://selenium1py.pythonanywhere.com/"
-#
 #
 # @pytest.fixture
 # def browser():
