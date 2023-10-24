@@ -6,16 +6,16 @@ from selenium.webdriver.common.by import By
 
 @pytest.fixture()
 def driver():
-    #создание драйвера
+#инициализация драйвера
     driver = webdriver.Chrome()
     yield driver
     driver.quit()
 
 @pytest.fixture()
 def authorization(driver):
-    #авторизация с коректными данными
+#авторизация с коректными данными
     driver.get(URL_TEST)
-    driver.maximize_window()
+#    driver.maximize_window() # использовать опции
     driver.find_element(By.XPATH, USERNAME_FIELD).send_keys(USERNAME)
     driver.find_element(By.XPATH, PASSWORD_FIELD).send_keys(PASSWORD)
     driver.find_element(By.XPATH, LOGIN_BUTTON).click()
