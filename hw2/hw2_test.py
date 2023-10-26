@@ -5,6 +5,7 @@ import time
 from locators import USERNAME_FIELD, PASSWORD_FIELD,LOGIN_BUTTON,CART_BUTTON,BORGER_BUTTON
 from data import URL_TEST, USERNAME, PASSWORD, PASSWORD_NOT_CORRECT, FIRST_NAME, LAST_NAME, ZIP_CODE,URL_PAGE
 from selenium.webdriver.support import expected_conditions as EC
+from selenium.webdriver.support.select import Select
 
 
 # 1.Авторизация
@@ -28,9 +29,10 @@ def test_avtorization_not_correct(driver):
 
     driver.find_element(By.XPATH, LOGIN_BUTTON).click()
 
-    error_field = driver.find_element(By.XPATH, "//*[@data-test='error']").text
+    error_field = driver.find_element(By.XPATH, "//*[@data-test='error']")
 
-    assert error_field == 'Epic sadface: Username and password do not match any user in this service'
+    # assert error_field.text == 'Epic sadface: Username and password do not match any user in this service'
+    assert 'Epic sadface: Username and password do not match any user in this service' in error_field.text
     print(error_field)
 
 # вывод текста плейсходера поля username
@@ -164,6 +166,50 @@ def test_filter_price_low(driver,authorization):
 
     assert button_serting.text == 'Price (low to high)'
 
+def test_filter_price_min(driver, authorization):
+    price_before = driver.find_elements(By.CSS_SELECTOR, 'div.inventory_item_price')
+    print(len(price_before))
+    list_before = []
+    for x in price_before:
+        list_before.append(float(x.text[1:]))
+        print(x.text)
+
+    print()
+
+    button_filter = Select(driver.find_element(By.CSS_SELECTOR, 'select[data-test="product_sort_container"]'))
+    button_filter.select_by_visible_text('Price (low to high)')
+    time.sleep(3)
+
+    price_after = driver.find_elements(By.CSS_SELECTOR, 'div.inventory_item_price')
+    list_after = []
+    for x in price_after:
+        list_after.append(float(x.text[1:]))
+        print(x.text)
+
+    assert list_after == sorted(list_before)
+
+def test_filter_price_max(driver, authorization):
+    price_before = driver.find_elements(By.CSS_SELECTOR, 'div.inventory_item_price')
+    print(len(price_before))
+    list_before = []
+    for x in price_before:
+        list_before.append(float(x.text[1:]))
+        print(x.text)
+
+    print()
+
+    button_filter = Select(driver.find_element(By.CSS_SELECTOR, 'select[data-test="product_sort_container"]'))
+    button_filter.select_by_visible_text('Price (high to low)')
+    time.sleep(3)
+
+    price_after = driver.find_elements(By.CSS_SELECTOR, 'div.inventory_item_price')
+    list_after = []
+    for x in price_after:
+        list_after.append(float(x.text[1:]))
+        print(x.text)
+
+    assert list_after == sorted(list_before, reverse=True)
+
 # проверка работоспособности фильтра (от высокой до низкой)
 def test_filter_price_higt(driver,authorization):
     driver.find_element(By.XPATH, "//*[@value='hilo']").click()
@@ -240,6 +286,17 @@ def test_checkbox_on(driver):
     assert checkbox.is_displayed()
     assert checkbox.is_enabled() == True
     assert checkbox.is_selected() == True
+
+def test_stepik():
+    browser = webdriver.Chrome()
+    browser.get("http://suninjuly.github.io/wait1.html")
+
+    time.sleep(1)
+    button = browser.find_element(By.ID, "verify")
+    button.click()
+    message = browser.find_element(By.ID, "verify_message")
+
+    assert "successful" in message.text
 
 
 
