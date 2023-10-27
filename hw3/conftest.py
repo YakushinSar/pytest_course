@@ -9,19 +9,19 @@ from data import URL_TEST, LOGIN, PASSWORD
 def chrome_options():
     options = Options()
     # options.add_argument('--window-size=200,200')
-    options.add_argument('--headless')
+    # options.add_argument('--headless')
     return options
 
-# @pytest.fixture
-# #с неявным ожиданием
-# def driver(chrome_options):
-#     driver = webdriver.Chrome(options=chrome_options)
-#     driver.implicitly_wait(10)
-#     yield driver
-#     driver.quit()
+@pytest.fixture
+#с неявным ожиданием
+def driver1(chrome_options):
+    driver1 = webdriver.Chrome(options=chrome_options)
+    driver1.implicitly_wait(10)
+    yield driver1
+    driver1.quit()
 
 @pytest.fixture
-#с явным ожиданием
+#с явным,sleep ожиданием
 def driver(chrome_options):
     driver = webdriver.Chrome(options=chrome_options)
     yield driver
@@ -32,14 +32,7 @@ def wait(driver):
     wait = WebDriverWait(driver, timeout=10)
     return wait
 
-@pytest.fixture
-def login(driver):
-    driver.get(URL_TEST)
-    driver.find_element(By.XPATH, "//*[@id='startTest']").click()
-    driver.find_element(By.XPATH, "// *[ @ id = 'login']").send_keys(LOGIN)
-    driver.find_element(By.XPATH, "// *[ @ id = 'password']").send_keys(PASSWORD)
-    driver.find_element(By.XPATH, "//*[@type='checkbox']").click()
-    driver.find_element(By.XPATH, "//*[@id='register']").click()
+
 
 
 
