@@ -1,8 +1,12 @@
 #hw2
 
-USERNAME_FIELD = "//*[@placeholder='Username']"
-PASSWORD_FIELD = "//*[@placeholder='Password']"
-LOGIN_BUTTON = "//*[@data-test='login-button']"
+URL_TEST = 'https://www.saucedemo.com'
+URL_PAGE = 'https://www.saucedemo.com/'
 
-CART_BUTTON = "//*[@class='shopping_cart_link']"
-BORGER_BUTTON = "//*[@id='react-burger-menu-btn']"
+USERNAME = 'standard_user'
+PASSWORD = 'secret_sauce'
+PASSWORD_NOT_CORRECT = 'secret'
+
+FIRST_NAME = 'Andrey'
+LAST_NAME = 'Ivanov'
+ZIP_CODE = 12345
