@@ -26,7 +26,7 @@ def test_basic_auth(driver,wait):
     assert driver.find_element(By.XPATH, '//h3').text == 'Basic Auth'
     assert text_success_auth == 'Congratulations! You must have the proper credentials.'
 
-# 3. https://the-internet.herokuapp.com/broken_images (Необходимо найти сломанные изображения)
+# 2. https://the-internet.herokuapp.com/broken_images (Необходимо найти сломанные изображения)
 def test_broken_images(driver):
     driver.get('//the-internet.herokuapp.com/broken_images')
     list_images = driver.find_elements(By.XPATH, IMG_ANY)
@@ -48,7 +48,19 @@ def test_broken_images(driver):
 
     assert len(list_broken_links) == 0, f"\n{len(list_broken_links)} broken link(s): {list_broken_links} \n{len(list_correct_links)} correct link(s): {list_correct_links}"
 
-# 4. https://the-internet.herokuapp.com/checkboxes (Практика с чек боксами)
+# 3. https://the-internet.herokuapp.com/checkboxes (Практика с чек боксами)
+def test_checkboxes(driver,wait):
+    driver.get('https://the-internet.herokuapp.com/checkboxes')
+
+    check1 = driver.find_element(By.XPATH,'//*[@id="checkboxes"]/input[1]')
+    if not check1.is_selected():
+        check1.click()
+#изначально второй кликнут
+    check2 = driver.find_element(By.XPATH,'//*[@id="checkboxes"]/input[2]' )
+    if  check2.is_selected():
+        check2.click()
+
+
 
 
 
