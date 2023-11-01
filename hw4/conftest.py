@@ -15,10 +15,13 @@ def options():
 def driver(options):
     driver = webdriver.Chrome(options=options)
     return driver
-    yield driver
+    # yield driver
     driver.quit()
 
 @pytest.fixture
 def wait(driver):
-    wait = WebDriverWait(driver, timeout = 15)
+    wait = WebDriverWait(driver, timeout=15)
     return wait
+
+
+
