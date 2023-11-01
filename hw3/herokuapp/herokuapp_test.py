@@ -53,7 +53,7 @@ def test_checkboxes(driver,wait):
     driver.get('https://the-internet.herokuapp.com/checkboxes')
 
     check1 = driver.find_element(By.XPATH,'//*[@id="checkboxes"]/input[1]')
-    assert check1.is_selected() == False,'бокс выбран'
+    assert check1.is_selected() == False, 'бокс выбран'
     if not check1.is_selected():
         check1.click()
 #изначально второй кликнут
