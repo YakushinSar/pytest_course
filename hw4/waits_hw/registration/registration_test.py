@@ -1,6 +1,7 @@
 from locators import TEST_TAG,BUTTON_START_TEST,LOGIN_FIELD,CHECXBOX,REGISTER_BUTTON,LOADER,FINAL_MASSAGE,PASSWORD_FIELD
 from data import URL_TEST,LOGIN,PASSWORD
 from selenium.webdriver.support import expected_conditions as EC
+from pytest_course.hw4.waits_hw.registration.conftest import *
 
 
 
