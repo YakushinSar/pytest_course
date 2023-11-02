@@ -1,11 +1,11 @@
-from locators import TEST_TAG,BUTTON_START_TEST,LOGIN_FIELD,CHECXBOX,REGISTER_BUTTON,LOADER,FINAL_MASSAGE,PASSWORD_FIELD
-from data import URL_TEST,LOGIN,PASSWORD
 from selenium.webdriver.support import expected_conditions as EC
-from pytest_course.hw4.waits_hw.registration.conftest import *
+from data import URL_TEST
+from locators import TEST_TAG, BUTTON_START_TEST, LOGIN_FIELD, CHECXBOX, REGISTER_BUTTON, LOADER, FINAL_MASSAGE, \
+    PASSWORD_FIELD
+from pytest_course.hw4.waits_hw.conftest import *
 
 
-
-def test_registration(driver,wait):
+def test_registration(driver, wait, random_login, random_password):
     driver.get(URL_TEST)
     assert driver.current_url == 'https://victoretc.github.io/selenium_waits/'
 
@@ -19,11 +19,11 @@ def test_registration(driver,wait):
 
     login_field = wait.until(EC.visibility_of_element_located(LOGIN_FIELD))
     login_field.clear()
-    login_field.send_keys(LOGIN)
+    login_field.send_keys(random_login)
 
     password_field = wait.until(EC.visibility_of_element_located(PASSWORD_FIELD))
     password_field.clear()
-    password_field.send_keys(PASSWORD)
+    password_field.send_keys(random_password)
 
     checxbox = wait.until(EC.visibility_of_element_located(CHECXBOX))
     checxbox.click()
@@ -33,13 +33,10 @@ def test_registration(driver,wait):
     button_register.text == 'Зарегистрироваться'
     button_register.click()
 
-    loader = wait.until(EC.visibility_of_all_elements_located(LOADER))
+    loader = wait.until(EC.visibility_of_element_located(LOADER))
     # assert loader.is_displayed()==True
-    # assert loader.text =='Загрузка...'
+    assert loader.text == 'Загрузка...'
 
     final_massage = wait.until(EC.element_to_be_clickable(FINAL_MASSAGE))
-    assert final_massage.text == "Вы успешно зарегистрированы!",'Регистрация не прошла'
+    assert final_massage.text == "Вы успешно зарегистрированы!", 'Регистрация не прошла'
     print(final_massage.text)
-
-
-

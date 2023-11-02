@@ -9,7 +9,7 @@ from data import URL_TEST, LOGIN, PASSWORD
 def chrome_options():
     options = Options()
     # options.add_argument('--window-size=200,200')
-    options.add_argument('--headless')
+    # options.add_argument('--headless')
     return options
 
 @pytest.fixture

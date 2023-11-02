@@ -1,14 +1,17 @@
-from selenium import webdriver
-from selenium.webdriver.chrome.options import Options
-from selenium.webdriver.common.by import By
-from selenium.webdriver.support.ui import WebDriverWait
-from selenium.webdriver.support import expected_conditions as EC
-import pytest
+# from selenium import webdriver
+# from selenium.webdriver.chrome.options import Options
+# import pytest
 import time
-from data import URL_TEST, LOGIN, PASSWORD
-from locators import LOGIN_FIELD,PASSWORD_FIELD,CHECXBOX,REGISTER_BUTTON,FINAL_MASSAGE,BUTTON_START_TEST
 
-#Перейти по URL: Открыть в браузере указанный URL сайта https://victoretc.github.io/selenium_waits/
+from selenium.webdriver.common.by import By
+# from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
+
+from data import URL_TEST, LOGIN, PASSWORD
+from locators import LOGIN_FIELD, PASSWORD_FIELD, CHECXBOX, REGISTER_BUTTON, FINAL_MASSAGE, BUTTON_START_TEST
+
+
+# Перейти по URL: Открыть в браузере указанный URL сайта https://victoretc.github.io/selenium_waits/
 # Проверить заголовок: Убедиться, что текст в теге <h1> на странице соответствует "Практика с ожиданиями в Selenium".
 # Дождаться появления кнопки "Начать тестирование"
 # Найти кнопку: Найти на странице кнопку с текстом "Начать тестирование".
@@ -48,12 +51,13 @@ def test_time(driver):
     time.sleep(2)
 
     loader = driver.find_element(By.XPATH, "//*[@id='loader']")
-    assert loader.is_displayed()==True
-    assert loader.text =='Загрузка...'
+    assert loader.is_displayed() == True
+    assert loader.text == 'Загрузка...'
     time.sleep(5)
 
     final = driver.find_element(By.XPATH, FINAL_MASSAGE)
-    assert final.text == "Вы успешно зарегистрированы!",'Регистрация не прошла'
+    assert final.text == "Вы успешно зарегистрированы!", 'Регистрация не прошла'
+
 
 def test_impl(driver1):
     driver1.get(URL_TEST)
@@ -72,17 +76,16 @@ def test_impl(driver1):
     driver1.find_element(By.XPATH, CHECXBOX).click()
     driver1.find_element(By.XPATH, REGISTER_BUTTON).click()
 
-
     loader = driver1.find_element(By.XPATH, "//*[@id='loader']")
     assert loader.is_displayed() == True
-    assert loader.text =='Загрузка...'
-
+    assert loader.text == 'Загрузка...'
 
     final = driver1.find_element(By.XPATH, FINAL_MASSAGE)
     assert final.is_displayed() == True
-    assert final.text == "Вы успешно зарегистрированы!",'Регистрация не прошла'
+    assert final.text == "Вы успешно зарегистрированы!", 'Регистрация не прошла'
 
-def test_expl(driver,wait):
+
+def test_expl(driver, wait):
     driver.get(URL_TEST)
     assert driver.current_url == 'https://victoretc.github.io/selenium_waits/'
 
@@ -101,9 +104,9 @@ def test_expl(driver,wait):
     driver.find_element(By.XPATH, REGISTER_BUTTON).click()
 
     loader = driver.find_element(By.XPATH, "//*[@id='loader']")
-    assert loader.is_displayed()==True
-    assert loader.text =='Загрузка...'
+    assert loader.is_displayed() == True
+    assert loader.text == 'Загрузка...'
 
     final = wait.until(EC.element_to_be_clickable((By.XPATH, FINAL_MASSAGE)))
-    assert final.text == "Вы успешно зарегистрированы!",'Регистрация не прошла'
+    assert final.text == "Вы успешно зарегистрированы!", 'Регистрация не прошла'
     print(final.text)
