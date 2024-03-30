@@ -2,10 +2,12 @@ import pytest
 from faker import Faker
 
 
-@pytest.fixture
+
+
 def random_login():
     fake = Faker()
     return fake.user_name()
+    print(fake)
 
 
 @pytest.fixture
